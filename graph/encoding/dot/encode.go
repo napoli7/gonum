@@ -333,12 +333,11 @@ func (p *printer) writePorts(port, cp string) {
 }
 
 func nodeID(n graph.Node) string {
-	switch n := n.(type) {
-	case Node:
-		return n.DOTID()
-	default:
-		return fmt.Sprint(n.ID())
+	nd, ok := n.(Node)
+	if ok {
+		return nd.DOTID()
 	}
+	return fmt.Sprint(n.ID())
 }
 
 func graphID(g interface{}, n graph.Node) string {
